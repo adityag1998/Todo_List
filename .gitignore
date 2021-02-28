@@ -1,0 +1,6 @@
+# misc
+.DS_Store
+
+# Dev Dependencies
+client/node_modules
+server/node_modules
