@@ -1,0 +1,8 @@
+.flexContainer {
+  display: flex;
+}
+
+.center {
+  margin: auto;
+  width: 300px;
+}
