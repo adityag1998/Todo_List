@@ -8,6 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { useMutation } from '@apollo/client';
+import { UPDATE_TODOS } from './GraphQL/Mutations';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,16 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function updateTodo(todo) {
-  console.log('update todo');
-}
-
 function removeTodo(todo) {
   console.log('remove todo');
 }
 
 function CheckboxList({ todoList }) {
   const classes = useStyles();
+  const [changeStatus] = useMutation(UPDATE_TODOS);
+
   return (
     <List className={classes.root}>
       {todoList.map((todo) => {
@@ -38,7 +38,14 @@ function CheckboxList({ todoList }) {
             role={undefined}
             dense
             button
-            onClick={() => updateTodo(todo)}
+            onClick={() =>
+              changeStatus({
+                variables: {
+                  id: todo.id,
+                  complete: !todo.complete,
+                },
+              })
+            }
           >
             <ListItemIcon>
               <Checkbox
